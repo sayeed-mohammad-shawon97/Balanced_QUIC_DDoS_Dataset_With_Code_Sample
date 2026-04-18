@@ -1,0 +1,3 @@
+1. PCAP Sources:
+1.1 Benign (VisQUIC): https://www.dropbox.com/scl/fo/8qg9rnw8r9h5wyv0kihhk/AFC0c0jwM5zZHqc6tym3spA?rlkey=q9i0rs2equxdgpchpr5del2ji&e=1&st=ehkpiccr&dl=0
+1.2 Attack (Kaggle): https://www.kaggle.com/datasets/adam357/quic-network-capture-data
