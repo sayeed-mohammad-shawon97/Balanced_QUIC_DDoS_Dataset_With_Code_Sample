@@ -1,8 +1,8 @@
+import pandas as pd
 from catboost import CatBoostClassifier, Pool
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix
-
-import pandas as pd
+import matplotlib.pyplot as plt
 
 # -----------------------------
 # CONFIG
@@ -91,20 +91,13 @@ print(confusion_matrix(y_test, y_pred))
 # FEATURE IMPORTANCE PLOT
 # -----------------------------
 feature_importances = model.get_feature_importance(Pool(X_train, y_train))
-
-# Create a DataFrame
-importance_df = pd.DataFrame({
-    "Feature": FEATURES,
-    "Importance": feature_importances
-})
-
-# Sort by importance (descending)
-importance_df = importance_df.sort_values(by="Importance", ascending=False)
-
-# Display as table
-print("\nCatBoost Feature Importance Table:")
-print(importance_df.to_string(index=False))
-
+plt.figure(figsize=(10,6))
+plt.barh(FEATURES, feature_importances)
+plt.xlabel("Importance")
+plt.ylabel("Feature")
+plt.title("CatBoost Feature Importance")
+plt.gca().invert_yaxis()  # highest importance on top
+plt.show()
 
 # -----------------------------
 # SAVE MODEL
