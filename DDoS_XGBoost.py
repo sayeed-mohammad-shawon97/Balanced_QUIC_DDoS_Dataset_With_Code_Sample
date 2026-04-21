@@ -1,9 +1,8 @@
-
+import pandas as pd
 import xgboost as xgb
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import classification_report, confusion_matrix, accuracy_score
-
-import pandas as pd
+import matplotlib.pyplot as plt
 
 # -----------------------------
 # CONFIG
@@ -95,21 +94,10 @@ print(f"\nAccuracy: {accuracy_score(y_test, y_pred):.4f}")
 # -----------------------------
 # FEATURE IMPORTANCE PLOT
 # -----------------------------
-feature_importances = model.feature_importances_
-
-# Create DataFrame
-importance_df = pd.DataFrame({
-    "Feature": FEATURES,
-    "Importance": feature_importances
-})
-
-# Sort by importance (descending)
-importance_df = importance_df.sort_values(by="Importance", ascending=False)
-
-# Display as table
-print("\nXGBoost Feature Importance Table:")
-print(importance_df.to_string(index=False))
-
+plt.figure(figsize=(10,6))
+xgb.plot_importance(model, max_num_features=len(FEATURES), importance_type='weight', height=0.6)
+plt.title("XGBoost Feature Importance")
+plt.show()
 
 # -----------------------------
 # SAVE MODEL
