@@ -131,13 +131,37 @@ importance_df = permutation_importance_keras(
     FEATURES
 )
 
-# Sort by importance (descending)
-importance_df = importance_df.sort_values(by="importance", ascending=False)
+print("\n===== FINAL FEATURE IMPORTANCE =====")
+print(importance_df)
 
-print("\n===== FINAL FEATURE IMPORTANCE TABLE =====")
-print(importance_df.to_string(index=False))
+# -----------------------------
+# PLOT FEATURE IMPORTANCE (Horizontal)
+# -----------------------------
+plt.figure(figsize=(10, 6))
 
+importance_df_sorted = importance_df.sort_values(by="importance", ascending=True)
 
+plt.barh(
+    importance_df_sorted["feature"],
+    importance_df_sorted["importance"]
+)
+
+plt.xlabel("Importance (Accuracy Drop)")
+plt.ylabel("Features")
+plt.title("Neural Network Feature Importance (Permutation)")
+
+# Add value labels
+for index, value in enumerate(importance_df_sorted["importance"]):
+    plt.text(
+        value,
+        index,
+        f"{value:.4f}",
+        va='center',
+        ha='left'
+    )
+
+plt.tight_layout()
+plt.show()
 
 # -----------------------------
 # SAVE MODEL
